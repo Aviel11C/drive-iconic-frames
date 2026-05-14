@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroImg from "@/assets/hero.jpg";
 import aboutImg from "@/assets/about.jpg";
-import { vehicles, categories } from "@/data/vehicles";
+import { vehicles } from "@/data/vehicles";
 import { VehicleCard } from "@/components/VehicleCard";
 import { SectionLabel } from "@/components/SectionLabel";
 import { Film, Camera, Music, Heart, Users, Sparkles, ArrowRight } from "lucide-react";
