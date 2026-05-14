@@ -9,24 +9,24 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+        <div className="text-[11px] tracking-luxury uppercase text-gold">Error 404</div>
+        <h1 className="mt-6 font-display text-6xl text-ivory">Page not found</h1>
+        <p className="mt-4 text-sm text-muted-foreground">
+          This page has driven off the lot. Let's get you back to the showroom.
         </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
-        </div>
+        <Link
+          to="/"
+          className="mt-8 inline-flex items-center text-[11px] uppercase tracking-luxury border border-gold/60 text-gold px-6 py-3 hover:bg-gold hover:text-primary-foreground transition-all duration-500"
+        >
+          Return Home
+        </Link>
       </div>
     </div>
   );
@@ -35,32 +35,19 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+        <h1 className="font-display text-3xl text-ivory">Something went off-script.</h1>
+        <p className="mt-3 text-sm text-muted-foreground">{error.message}</p>
+        <div className="mt-8 flex gap-3 justify-center">
           <button
-            onClick={() => {
-              router.invalidate();
-              reset();
-            }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            onClick={() => { router.invalidate(); reset(); }}
+            className="text-[11px] uppercase tracking-luxury border border-gold/60 text-gold px-5 py-3 hover:bg-gold hover:text-primary-foreground transition-all"
           >
-            Try again
+            Try Again
           </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-          >
-            Go home
-          </a>
+          <a href="/" className="text-[11px] uppercase tracking-luxury border border-border px-5 py-3 hover:border-gold hover:text-gold transition-all">Home</a>
         </div>
       </div>
     </div>
@@ -72,19 +59,38 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Ride4Movies — Hollywood's Premier Picture Car Collection" },
+      { name: "description", content: "Luxury, vintage and exotic picture cars for film, photography, weddings and luxury events. Serving Beverly Hills, Hollywood and Los Angeles for 25+ years." },
+      { name: "author", content: "Ride4Movies" },
+      { property: "og:site_name", content: "Ride4Movies" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:title", content: "Ride4Movies — Hollywood's Premier Picture Car Collection" },
+      { property: "og:description", content: "Luxury, vintage and exotic picture cars for film, photography, weddings and luxury events." },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "theme-color", content: "#0c0c0c" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+    ],
+    scripts: [
       {
-        rel: "stylesheet",
-        href: appCss,
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "AutoRental",
+          name: "Ride4Movies",
+          description: "Luxury, vintage and exotic picture cars for film productions, photography, weddings and luxury events.",
+          telephone: "+1-310-877-6400",
+          email: "Erez88@yahoo.com",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "615 N West Knoll Dr",
+            addressLocality: "West Hollywood",
+            addressRegion: "CA",
+            addressCountry: "US",
+          },
+          areaServed: ["Beverly Hills", "Hollywood", "Los Angeles", "Santa Monica", "West Hollywood"],
+        }),
       },
     ],
   }),
@@ -96,7 +102,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <HeadContent />
       </head>
@@ -110,10 +116,13 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <SiteHeader />
+      <main className="min-h-screen">
+        <Outlet />
+      </main>
+      <SiteFooter />
     </QueryClientProvider>
   );
 }
