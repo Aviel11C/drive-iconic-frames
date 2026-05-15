@@ -3,6 +3,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { SectionLabel } from "@/components/SectionLabel";
 import { Phone, Mail, MapPin, Send, Check } from "lucide-react";
+import { vehicles, categories } from "@/data/vehicles";
 
 const searchSchema = z.object({
   vehicle: z.string().optional(),
@@ -114,9 +115,24 @@ function Contact() {
                     <label className="text-[10px] tracking-luxury uppercase text-gold">Date</label>
                     <input name="date" className={fieldClass} placeholder="Production / event date" />
                   </div>
-                  <div>
+                  <div className="sm:col-span-2">
                     <label className="text-[10px] tracking-luxury uppercase text-gold">Vehicle of Interest</label>
-                    <input name="vehicle" defaultValue={vehicle ?? ""} className={fieldClass} placeholder="e.g. 1986 Rolls-Royce Corniche" />
+                    <select name="vehicle" defaultValue={vehicle ?? ""} className={fieldClass}>
+                      <option value="" className="bg-background">Select a vehicle (optional)…</option>
+                      <option value="No preference — recommend something" className="bg-background">No preference — recommend something</option>
+                      {categories.map((cat) => (
+                        <optgroup key={cat} label={cat} className="bg-background text-ivory">
+                          {vehicles.filter((v) => v.category === cat).map((v) => {
+                            const label = `${v.year} ${v.name}`;
+                            return (
+                              <option key={v.slug} value={label} className="bg-background">
+                                {label}
+                              </option>
+                            );
+                          })}
+                        </optgroup>
+                      ))}
+                    </select>
                   </div>
                 </div>
 
