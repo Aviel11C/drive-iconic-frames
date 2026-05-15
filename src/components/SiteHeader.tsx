@@ -11,6 +11,9 @@ const nav = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
+const leftNav = nav.slice(0, 2);
+const rightNav = nav.slice(2);
+
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -26,51 +29,88 @@ export function SiteHeader() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ${
         scrolled
-          ? "bg-background/75 backdrop-blur-xl border-b border-border/40"
-          : "bg-transparent"
+          ? "bg-background/85 backdrop-blur-xl border-b border-gold/20"
+          : "bg-gradient-to-b from-background/70 to-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-[1480px] items-center justify-between px-6 py-5 md:px-10">
-        <Link to="/" className="flex items-center gap-3 group">
-          <img src={logo} alt="Ride4Movies" className="h-10 w-auto opacity-90 group-hover:opacity-100 transition-opacity" />
-          <div className="hidden sm:block leading-none">
-            <div className="font-display text-xl text-ivory tracking-wide">Ride<span className="text-gold">4</span>Movies</div>
-            <div className="text-[10px] tracking-luxury text-muted-foreground uppercase mt-1">Hollywood · Est. Picture Cars</div>
-          </div>
+      {/* Mobile bar */}
+      <div className="md:hidden flex items-center justify-between px-5 py-3">
+        <button aria-label="Menu" className="text-ivory" onClick={() => setOpen((v) => !v)}>
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+        <Link to="/" className="flex items-center gap-2">
+          <img
+            src={logo}
+            alt="Ride4Movies — Hollywood Picture Cars"
+            className={`w-auto transition-all duration-700 drop-shadow-[0_0_18px_rgba(212,175,90,0.25)] ${
+              scrolled ? "h-12" : "h-14"
+            }`}
+          />
         </Link>
-
-        <nav className="hidden md:flex items-center gap-10">
-          {nav.map((n) => (
-            <Link
-              key={n.to}
-              to={n.to}
-              className="text-[11px] uppercase tracking-luxury text-foreground/80 hover:text-gold transition-colors duration-500"
-              activeProps={{ className: "text-gold" }}
-              activeOptions={{ exact: n.to === "/" }}
-            >
-              {n.label}
-            </Link>
-          ))}
-        </nav>
-
         <Link
           to="/contact"
-          className="hidden md:inline-flex items-center text-[11px] uppercase tracking-luxury border border-gold/60 text-gold px-5 py-3 hover:bg-gold hover:text-primary-foreground transition-all duration-500"
+          className="text-[10px] uppercase tracking-luxury text-gold border border-gold/50 px-3 py-2"
         >
           Reserve
         </Link>
+      </div>
 
-        <button
-          aria-label="Menu"
-          className="md:hidden text-ivory"
-          onClick={() => setOpen((v) => !v)}
+      {/* Desktop centered emblem */}
+      <div className="hidden md:block">
+        <div
+          className={`mx-auto max-w-[1480px] grid grid-cols-[1fr_auto_1fr] items-center gap-8 px-10 transition-all duration-700 ${
+            scrolled ? "py-3" : "py-6"
+          }`}
         >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+          <nav className="flex items-center justify-end gap-10">
+            {leftNav.map((n) => (
+              <Link
+                key={n.to}
+                to={n.to}
+                className="text-[11px] uppercase tracking-luxury text-foreground/80 hover:text-gold transition-colors duration-500"
+                activeProps={{ className: "text-gold" }}
+                activeOptions={{ exact: n.to === "/" }}
+              >
+                {n.label}
+              </Link>
+            ))}
+          </nav>
+
+          <Link to="/" className="group flex flex-col items-center justify-center">
+            <img
+              src={logo}
+              alt="Ride4Movies — Hollywood Picture Cars"
+              className={`w-auto transition-all duration-700 drop-shadow-[0_0_30px_rgba(212,175,90,0.35)] group-hover:drop-shadow-[0_0_45px_rgba(212,175,90,0.55)] ${
+                scrolled ? "h-16" : "h-28 lg:h-32"
+              }`}
+            />
+            {!scrolled && (
+              <div className="mt-2 text-[9px] tracking-[0.5em] uppercase text-gold/80 font-display italic">
+                Est. Hollywood
+              </div>
+            )}
+          </Link>
+
+          <nav className="flex items-center justify-start gap-10">
+            {rightNav.map((n) => (
+              <Link
+                key={n.to}
+                to={n.to}
+                className="text-[11px] uppercase tracking-luxury text-foreground/80 hover:text-gold transition-colors duration-500"
+                activeProps={{ className: "text-gold" }}
+              >
+                {n.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+        <div className="mx-auto max-w-[1480px] px-10">
+          <div className="gold-line opacity-60" />
+        </div>
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-border/40 bg-background/95 backdrop-blur-xl">
+        <div className="md:hidden border-t border-gold/20 bg-background/95 backdrop-blur-xl">
           <div className="flex flex-col px-6 py-6 gap-5">
             {nav.map((n) => (
               <Link

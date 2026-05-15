@@ -12,7 +12,8 @@ export type VehicleCategory =
   | "Vintage Classics"
   | "Luxury Vehicles"
   | "Electric Modern"
-  | "Motorcycles & Vespas";
+  | "Motorcycles & Vespas"
+  | "Boats & Watercraft";
 
 export interface Vehicle {
   slug: string;
@@ -44,6 +45,12 @@ export const vehicles: Vehicle[] = [
   // Motorcycles & Vespas
   { slug: "2016-vespa-red", name: "Red Vespa", year: 2016, category: "Motorcycles & Vespas", availability: "Available" },
   { slug: "1962-piaggio-vespa-150gl", name: "Piaggio Vespa 150 GL", year: 1962, category: "Motorcycles & Vespas", image: vespa, availability: "Reservation Only" },
+
+  // Boats & Watercraft
+  { slug: "2021-chris-craft-center-console", name: "Chris-Craft Center Console", year: 2021, category: "Boats & Watercraft", availability: "Reservation Only" },
+  { slug: "2018-duffy-18", name: "Duffy 18ft Electric", year: 2018, category: "Boats & Watercraft", availability: "Available" },
+  { slug: "2025-seadoo-jetski-1", name: "Sea-Doo Jet Ski", year: 2025, category: "Boats & Watercraft", availability: "Available" },
+  { slug: "2025-seadoo-jetski-2", name: "Sea-Doo Jet Ski", year: 2025, category: "Boats & Watercraft", availability: "Available" },
 ];
 
 export const categories: VehicleCategory[] = [
@@ -51,4 +58,5 @@ export const categories: VehicleCategory[] = [
   "Luxury Vehicles",
   "Electric Modern",
   "Motorcycles & Vespas",
+  "Boats & Watercraft",
 ];
