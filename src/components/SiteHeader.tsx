@@ -42,8 +42,8 @@ export function SiteHeader() {
           <img
             src={logo}
             alt="Ride4Movies — Hollywood Picture Cars"
-            className={`w-auto transition-all duration-700 drop-shadow-[0_0_18px_rgba(212,175,90,0.25)] ${
-              scrolled ? "h-12" : "h-14"
+            className={`w-auto transition-all duration-700 ${
+              scrolled ? "h-20" : "h-24"
             }`}
           />
         </Link>
