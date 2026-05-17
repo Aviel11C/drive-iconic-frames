@@ -80,8 +80,8 @@ export function SiteHeader() {
             <img
               src={logo}
               alt="Ride4Movies — Hollywood Picture Cars"
-              className={`w-auto transition-all duration-700 drop-shadow-[0_0_30px_rgba(212,175,90,0.35)] group-hover:drop-shadow-[0_0_45px_rgba(212,175,90,0.55)] ${
-                scrolled ? "h-16" : "h-28 lg:h-32"
+              className={`w-auto transition-all duration-700 ${
+                scrolled ? "h-24" : "h-44 lg:h-56"
               }`}
             />
             {!scrolled && (
