@@ -102,26 +102,24 @@ function VehicleDetail() {
 
           <div className="mt-10 grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div className="lg:col-span-7">
-              <div className="relative aspect-[4/3] overflow-hidden bg-charcoal film-grain">
-                {vehicle.image ? (
-                  <img
-                    src={vehicle.image}
-                    alt={`${fullName} — picture car for rent in Los Angeles`}
-                    width={1600}
-                    height={1200}
-                    className="h-full w-full object-cover ken-burns"
-                  />
-                ) : (
+              {vehicle.images && vehicle.images.length > 0 ? (
+                <VehicleGallery
+                  images={vehicle.images}
+                  alt={`${fullName} — picture car for rent in Los Angeles`}
+                />
+              ) : (
+                <div className="relative aspect-[4/3] overflow-hidden bg-charcoal film-grain">
                   <div className="h-full w-full grid place-items-center">
                     <div className="text-center">
                       <div className="font-display text-7xl text-gold/60">{vehicle.year}</div>
                       <div className="mt-3 text-[11px] tracking-luxury uppercase text-muted-foreground">Photography forthcoming</div>
                     </div>
                   </div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
-              </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                </div>
+              )}
             </div>
+
 
             <div className="lg:col-span-5 lg:sticky lg:top-32">
               <SectionLabel>{vehicle.category}</SectionLabel>
