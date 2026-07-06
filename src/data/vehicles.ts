@@ -1,15 +1,17 @@
-import rolls from "@/assets/cars/rolls.jpg";
 import tesla from "@/assets/cars/tesla.jpg";
 import cybertruck from "@/assets/cars/cybertruck.jpg";
-import vespaClassic from "@/assets/cars/vespa.jpg";
-import truck from "@/assets/cars/truck.jpg";
-import mercedes from "@/assets/cars/mercedes.jpg";
 
 import mustangAsset from "@/assets/cars/1965-mustang.jpg.asset.json";
 import landroverAsset from "@/assets/cars/1990-landrover.jpg.asset.json";
 import corvette1960Asset from "@/assets/cars/1960-corvette.jpg.asset.json";
 import corvette1954Asset from "@/assets/cars/1954-corvette.jpg.asset.json";
 import vespaRedAsset from "@/assets/cars/2016-vespa-red.jpg.asset.json";
+import vespaClassicAsset from "@/assets/cars/1962-vespa-150gl.jpg.asset.json";
+import truckAsset from "@/assets/cars/1954-chevy-3100.jpg.asset.json";
+import mercedesAsset from "@/assets/cars/1962-mercedes-190sl.jpg.asset.json";
+import cobraAsset from "@/assets/cars/1986-chevy-cobra.jpg.asset.json";
+import chrisCraftAsset from "@/assets/cars/2021-chris-craft.jpg.asset.json";
+import rollsAsset from "@/assets/cars/1986-rolls-corniche.jpg.asset.json";
 
 export type VehicleCategory =
   | "Vintage Classics"
