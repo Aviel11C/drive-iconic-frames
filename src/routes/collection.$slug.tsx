@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { vehicles } from "@/data/vehicles";
 import { SectionLabel } from "@/components/SectionLabel";
 import { VehicleCard } from "@/components/VehicleCard";
+import { VehicleGallery } from "@/components/VehicleGallery";
 import { ArrowLeft, ArrowUpRight, Phone, Mail } from "lucide-react";
 
 export const Route = createFileRoute("/collection/$slug")({
