@@ -1,6 +1,7 @@
 import mustangAsset from "@/assets/cars/1965-mustang.jpg.asset.json";
 import landroverAsset from "@/assets/cars/1990-landrover.jpg.asset.json";
 import corvette1960Asset from "@/assets/cars/1960-corvette.jpg.asset.json";
+import corvette1960Asset2 from "@/assets/cars/1960-corvette-2.jpg.asset.json";
 import corvette1954Asset from "@/assets/cars/1954-corvette.jpg.asset.json";
 import vespaRedAsset from "@/assets/cars/2016-vespa-red.jpg.asset.json";
 import vespaClassicAsset from "@/assets/cars/1962-vespa-150gl.jpg.asset.json";
