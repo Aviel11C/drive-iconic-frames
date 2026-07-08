@@ -15,6 +15,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CollectionRouteImport } from './routes/collection'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CollectionIndexRouteImport } from './routes/collection.index'
 import { Route as CollectionSlugRouteImport } from './routes/collection.$slug'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -47,6 +48,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CollectionIndexRoute = CollectionIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CollectionRoute,
+} as any)
 const CollectionSlugRoute = CollectionSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -61,15 +67,16 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/collection/$slug': typeof CollectionSlugRoute
+  '/collection/': typeof CollectionIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/collection': typeof CollectionRouteWithChildren
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/collection/$slug': typeof CollectionSlugRoute
+  '/collection': typeof CollectionIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +87,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/collection/$slug': typeof CollectionSlugRoute
+  '/collection/': typeof CollectionIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,15 +99,16 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/collection/$slug'
+    | '/collection/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/collection'
     | '/contact'
     | '/services'
     | '/sitemap.xml'
     | '/collection/$slug'
+    | '/collection'
   id:
     | '__root__'
     | '/'
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/collection/$slug'
+    | '/collection/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -164,6 +174,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/collection/': {
+      id: '/collection/'
+      path: '/'
+      fullPath: '/collection/'
+      preLoaderRoute: typeof CollectionIndexRouteImport
+      parentRoute: typeof CollectionRoute
+    }
     '/collection/$slug': {
       id: '/collection/$slug'
       path: '/$slug'
@@ -176,10 +193,12 @@ declare module '@tanstack/react-router' {
 
 interface CollectionRouteChildren {
   CollectionSlugRoute: typeof CollectionSlugRoute
+  CollectionIndexRoute: typeof CollectionIndexRoute
 }
 
 const CollectionRouteChildren: CollectionRouteChildren = {
   CollectionSlugRoute: CollectionSlugRoute,
+  CollectionIndexRoute: CollectionIndexRoute,
 }
 
 const CollectionRouteWithChildren = CollectionRoute._addFileChildren(
@@ -197,13 +216,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
