@@ -1,6 +1,7 @@
 import mustangAsset from "@/assets/cars/1965-mustang.jpg.asset.json";
 import landroverAsset from "@/assets/cars/1990-landrover.jpg.asset.json";
 import corvette1960Asset from "@/assets/cars/1960-corvette.jpg.asset.json";
+import corvette1960Asset2 from "@/assets/cars/1960-corvette-2.jpg.asset.json";
 import corvette1954Asset from "@/assets/cars/1954-corvette.jpg.asset.json";
 import vespaRedAsset from "@/assets/cars/2016-vespa-red.jpg.asset.json";
 import vespaClassicAsset from "@/assets/cars/1962-vespa-150gl.jpg.asset.json";
@@ -40,7 +41,7 @@ function v(base: Omit<Vehicle, "image"> & { images?: string[] }): Vehicle {
 export const vehicles: Vehicle[] = [
   // Vintage Classics
   v({ slug: "1954-corvette", name: "Chevrolet Corvette", year: 1954, category: "Vintage Classics", images: [corvette1954Asset.url], availability: "Reservation Only" }),
-  v({ slug: "1960-corvette", name: "Chevrolet Corvette", year: 1960, category: "Vintage Classics", images: [corvette1960Asset.url], availability: "Reservation Only" }),
+  v({ slug: "1960-corvette", name: "Chevrolet Corvette", year: 1960, category: "Vintage Classics", images: [corvette1960Asset.url, corvette1960Asset2.url], availability: "Reservation Only" }),
   v({ slug: "1962-mercedes-190sl", name: "Mercedes 190 SL", year: 1962, category: "Vintage Classics", images: [mercedesAsset.url], availability: "Reservation Only" }),
   v({ slug: "1965-mustang-gt", name: "Mustang GT", year: 1965, category: "Vintage Classics", images: [mustangAsset.url], availability: "Available" }),
   v({ slug: "1954-chevy-3100", name: "Chevrolet 3100 Truck", year: 1954, category: "Vintage Classics", images: [truckAsset.url], availability: "Available" }),
