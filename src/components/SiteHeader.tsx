@@ -11,9 +11,6 @@ const nav = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
-const leftNav = nav.slice(0, 2);
-const rightNav = nav.slice(2);
-
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -29,46 +26,48 @@ export function SiteHeader() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ${
         scrolled
-          ? "bg-background/85 backdrop-blur-xl border-b border-gold/20"
-          : "bg-gradient-to-b from-background/70 to-transparent"
+          ? "bg-ivory/90 backdrop-blur-xl border-b border-hairline"
+          : "bg-transparent"
       }`}
     >
       {/* Mobile bar */}
-      <div className="md:hidden flex items-center justify-between px-5 py-3">
-        <button aria-label="Menu" className="text-ivory" onClick={() => setOpen((v) => !v)}>
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+      <div className="md:hidden flex items-center justify-between px-5 py-4">
+        <button
+          aria-label="Menu"
+          className="text-ink"
+          onClick={() => setOpen((v) => !v)}
+        >
+          {open ? <X className="h-5 w-5" strokeWidth={1.2} /> : <Menu className="h-5 w-5" strokeWidth={1.2} />}
         </button>
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
           <img
             src={logo}
-            alt="Ride4Movies — Hollywood Picture Cars"
-            className={`w-auto transition-all duration-700 ${
-              scrolled ? "h-20" : "h-24"
-            }`}
+            alt="Ride4Movies"
+            className="h-10 w-auto"
           />
         </Link>
         <Link
           to="/contact"
-          className="text-[10px] uppercase tracking-luxury text-gold border border-gold/50 px-3 py-2"
+          className="text-[10px] uppercase tracking-luxury text-ink link-underline"
         >
           Reserve
         </Link>
       </div>
 
-      {/* Desktop centered emblem */}
+      {/* Desktop */}
       <div className="hidden md:block">
         <div
-          className={`mx-auto max-w-[1480px] grid grid-cols-[1fr_auto_1fr] items-center gap-8 px-10 transition-all duration-700 ${
-            scrolled ? "py-3" : "py-6"
+          className={`mx-auto max-w-[1520px] grid grid-cols-[1fr_auto_1fr] items-center gap-10 px-10 transition-all duration-700 ${
+            scrolled ? "py-4" : "py-7"
           }`}
         >
-          <nav className="flex items-center justify-end gap-10">
-            {leftNav.map((n) => (
+          <nav className="flex items-center justify-start gap-10">
+            {nav.slice(0, 2).map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
-                className="text-[11px] uppercase tracking-luxury text-foreground/80 hover:text-gold transition-colors duration-500"
-                activeProps={{ className: "text-gold" }}
+                className="text-[11px] uppercase tracking-luxury text-ink/80 hover:text-ink transition-colors duration-500 link-underline"
+                activeProps={{ className: "text-ink" }}
                 activeOptions={{ exact: n.to === "/" }}
               >
                 {n.label}
@@ -76,49 +75,41 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          <Link to="/" className="group flex flex-col items-center justify-center">
+          <Link to="/" className="flex flex-col items-center justify-center">
             <img
               src={logo}
               alt="Ride4Movies — Hollywood Picture Cars"
               className={`w-auto transition-all duration-700 ${
-                scrolled ? "h-24" : "h-44 lg:h-56"
+                scrolled ? "h-14" : "h-20"
               }`}
             />
-            {!scrolled && (
-              <div className="mt-2 text-[9px] tracking-[0.5em] uppercase text-gold/80 font-display italic">
-                Est. Hollywood
-              </div>
-            )}
           </Link>
 
-          <nav className="flex items-center justify-start gap-10">
-            {rightNav.map((n) => (
+          <nav className="flex items-center justify-end gap-10">
+            {nav.slice(2).map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
-                className="text-[11px] uppercase tracking-luxury text-foreground/80 hover:text-gold transition-colors duration-500"
-                activeProps={{ className: "text-gold" }}
+                className="text-[11px] uppercase tracking-luxury text-ink/80 hover:text-ink transition-colors duration-500 link-underline"
+                activeProps={{ className: "text-ink" }}
               >
                 {n.label}
               </Link>
             ))}
           </nav>
         </div>
-        <div className="mx-auto max-w-[1480px] px-10">
-          <div className="gold-line opacity-60" />
-        </div>
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-gold/20 bg-background/95 backdrop-blur-xl">
-          <div className="flex flex-col px-6 py-6 gap-5">
+        <div className="md:hidden border-t border-hairline bg-ivory/98 backdrop-blur-xl">
+          <div className="flex flex-col px-6 py-8 gap-5">
             {nav.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
                 onClick={() => setOpen(false)}
-                className="text-sm uppercase tracking-editorial text-foreground/80"
-                activeProps={{ className: "text-gold" }}
+                className="font-display text-2xl text-ink/85"
+                activeProps={{ className: "text-ink" }}
                 activeOptions={{ exact: n.to === "/" }}
               >
                 {n.label}
@@ -127,7 +118,7 @@ export function SiteHeader() {
             <Link
               to="/contact"
               onClick={() => setOpen(false)}
-              className="mt-2 text-[11px] uppercase tracking-luxury border border-gold/60 text-gold px-5 py-3 text-center"
+              className="mt-4 text-[11px] uppercase tracking-luxury bg-ink text-ivory px-5 py-4 text-center"
             >
               Reserve a Vehicle
             </Link>
