@@ -15,8 +15,8 @@ export const Route = createFileRoute("/collection/$slug")({
     const v = loaderData?.vehicle;
     if (!v) return {};
     const fullName = `${v.year} ${v.name}`;
-    const title = `${fullName} for Rent in Los Angeles — Ride4Movies Picture Cars`;
-    const description = `Rent the ${fullName} (${v.category}) for film productions, weddings, music videos and editorial shoots in Los Angeles. Reservation based — call 310-877-6400 or inquire online.`;
+    const title = `${fullName} — Ride4Movies`;
+    const description = `The ${fullName} (${v.category}) — available on reservation for film productions, weddings, music videos and editorial shoots in Los Angeles.`;
     const meta: Array<Record<string, string>> = [
       { title },
       { name: "description", content: description },
@@ -52,7 +52,11 @@ export const Route = createFileRoute("/collection/$slug")({
                   : "https://schema.org/LimitedAvailability",
               priceCurrency: "USD",
               price: "0",
-              priceSpecification: { "@type": "PriceSpecification", priceCurrency: "USD", description: "Reservation based — pricing on request" },
+              priceSpecification: {
+                "@type": "PriceSpecification",
+                priceCurrency: "USD",
+                description: "Reservation based — pricing on request",
+              },
               seller: {
                 "@type": "AutoRental",
                 name: "Ride4Movies",
@@ -68,18 +72,6 @@ export const Route = createFileRoute("/collection/$slug")({
             },
           }),
         },
-        {
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: "/" },
-              { "@type": "ListItem", position: 2, name: "Collection", item: "/collection" },
-              { "@type": "ListItem", position: 3, name: fullName, item: `/collection/${params.slug}` },
-            ],
-          }),
-        },
       ],
     };
   },
@@ -89,18 +81,22 @@ export const Route = createFileRoute("/collection/$slug")({
 function VehicleDetail() {
   const { vehicle } = Route.useLoaderData();
   const fullName = `${vehicle.year} ${vehicle.name}`;
-  const related = vehicles.filter((v) => v.category === vehicle.category && v.slug !== vehicle.slug).slice(0, 3);
+  const related = vehicles
+    .filter((v) => v.category === vehicle.category && v.slug !== vehicle.slug)
+    .slice(0, 3);
 
   return (
-    <div className="pt-28 md:pt-32">
-      {/* Hero */}
-      <section className="px-6 md:px-10 pt-10 pb-16">
-        <div className="mx-auto max-w-[1480px]">
-          <Link to="/collection" className="inline-flex items-center gap-2 text-[11px] uppercase tracking-luxury text-muted-foreground hover:text-gold transition-colors">
-            <ArrowLeft className="h-3.5 w-3.5" /> Back to Collection
+    <div className="bg-ivory pt-32 md:pt-40">
+      <section className="px-6 md:px-10 pb-24 md:pb-32">
+        <div className="mx-auto max-w-[1520px]">
+          <Link
+            to="/collection"
+            className="inline-flex items-center gap-2 text-[11px] uppercase tracking-luxury text-stone hover:text-ink transition-colors duration-500"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" strokeWidth={1.4} /> Back to collection
           </Link>
 
-          <div className="mt-10 grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div className="mt-12 grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
             <div className="lg:col-span-7">
               {vehicle.images && vehicle.images.length > 0 ? (
                 <VehicleGallery
@@ -108,56 +104,61 @@ function VehicleDetail() {
                   alt={`${fullName} — picture car for rent in Los Angeles`}
                 />
               ) : (
-                <div className="relative aspect-[4/3] overflow-hidden bg-charcoal film-grain">
+                <div className="relative aspect-[4/5] overflow-hidden bg-linen grain">
                   <div className="h-full w-full grid place-items-center">
                     <div className="text-center">
-                      <div className="font-display text-7xl text-gold/60">{vehicle.year}</div>
-                      <div className="mt-3 text-[11px] tracking-luxury uppercase text-muted-foreground">Photography forthcoming</div>
+                      <div className="font-display text-7xl text-taupe">{vehicle.year}</div>
+                      <div className="mt-4 text-[10px] tracking-luxury uppercase text-stone">
+                        Photography forthcoming
+                      </div>
                     </div>
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
                 </div>
               )}
             </div>
 
-
-            <div className="lg:col-span-5 lg:sticky lg:top-32">
-              <SectionLabel>{vehicle.category}</SectionLabel>
-              <h1 className="mt-6 font-display text-5xl md:text-6xl text-ivory leading-[1.02]">
+            <div className="lg:col-span-5 lg:sticky lg:top-40">
+              <div className="text-[10px] tracking-luxury uppercase text-stone">
+                {vehicle.category}
+              </div>
+              <h1 className="mt-6 font-display text-5xl md:text-6xl text-ink leading-[1] tracking-tightest">
                 {vehicle.name}
               </h1>
-              <div className="mt-3 font-display text-3xl gradient-gold-text">{vehicle.year}</div>
+              <div className="mt-4 font-display italic text-3xl text-stone">
+                {vehicle.year}
+              </div>
 
-              <div className="mt-10 grid grid-cols-2 gap-px bg-border/50 border border-border/50">
+              <p className="mt-10 text-ink-soft leading-relaxed font-light">
+                The {fullName} is part of the Ride4Movies private collection — meticulously preserved and reserved for film productions, editorial photography, weddings, music videos, and discerning private events across Los Angeles. Personally delivered. White glove on set.
+              </p>
+
+              <div className="mt-12 grid grid-cols-2 gap-y-8 gap-x-6 border-t border-hairline pt-10">
                 <Detail label="Year" value={String(vehicle.year)} />
                 <Detail label="Category" value={vehicle.category} />
                 <Detail label="Availability" value={vehicle.availability} />
                 <Detail label="Location" value="West Hollywood, CA" />
               </div>
 
-              <p className="mt-10 text-foreground/80 leading-relaxed font-light">
-                The {fullName} is part of the Ride4Movies private collection — meticulously preserved and reserved for film productions, editorial photography, weddings, music videos, and discerning private events across Los Angeles. Personally delivered. White glove on set.
-              </p>
-
-              <div className="mt-10 flex flex-wrap items-center gap-3">
+              <div className="mt-12 flex flex-wrap items-center gap-5">
                 <Link
                   to="/contact"
                   search={{ vehicle: fullName }}
-                  className="inline-flex items-center gap-3 bg-gold text-primary-foreground px-7 py-4 text-[11px] uppercase tracking-luxury hover:shadow-gold-glow transition-all duration-700"
+                  className="inline-flex items-center gap-3 bg-ink text-ivory px-8 py-4 text-[11px] uppercase tracking-luxury hover:bg-charcoal transition-colors duration-700"
                 >
-                  Reserve this vehicle <ArrowUpRight className="h-3.5 w-3.5" />
+                  Reserve this vehicle
+                  <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.4} />
                 </Link>
                 <a
                   href="tel:3108776400"
-                  className="inline-flex items-center gap-2 border border-ivory/30 text-ivory px-6 py-4 text-[11px] uppercase tracking-luxury hover:border-gold hover:text-gold transition-all duration-700"
+                  className="inline-flex items-center gap-2 text-[11px] uppercase tracking-luxury text-ink link-underline"
                 >
-                  <Phone className="h-3.5 w-3.5" /> 310-877-6400
+                  <Phone className="h-3.5 w-3.5" strokeWidth={1.4} /> 310-877-6400
                 </a>
                 <a
                   href={`mailto:Erez88@yahoo.com?subject=Reservation%20Inquiry%20—%20${encodeURIComponent(fullName)}`}
-                  className="inline-flex items-center gap-2 border border-ivory/30 text-ivory px-6 py-4 text-[11px] uppercase tracking-luxury hover:border-gold hover:text-gold transition-all duration-700"
+                  className="inline-flex items-center gap-2 text-[11px] uppercase tracking-luxury text-stone link-underline"
                 >
-                  <Mail className="h-3.5 w-3.5" /> Email
+                  <Mail className="h-3.5 w-3.5" strokeWidth={1.4} /> Email
                 </a>
               </div>
             </div>
@@ -165,14 +166,27 @@ function VehicleDetail() {
         </div>
       </section>
 
-      {/* Related */}
       {related.length > 0 && (
-        <section className="px-6 md:px-10 py-24 bg-card/30">
-          <div className="mx-auto max-w-[1480px]">
-            <SectionLabel>Also in {vehicle.category}</SectionLabel>
-            <h2 className="mt-6 font-display text-3xl md:text-5xl text-ivory">From the same chapter</h2>
-            <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {related.map((v) => <VehicleCard key={v.slug} vehicle={v} />)}
+        <section className="px-6 md:px-10 py-24 md:py-32 bg-bone">
+          <div className="mx-auto max-w-[1520px]">
+            <div className="flex items-end justify-between mb-14 pb-6 border-b border-hairline">
+              <div>
+                <SectionLabel>Also in {vehicle.category}</SectionLabel>
+                <h2 className="mt-8 font-display text-3xl md:text-5xl text-ink tracking-tightest">
+                  From the same chapter.
+                </h2>
+              </div>
+              <Link
+                to="/collection"
+                className="hidden md:inline-flex text-[11px] uppercase tracking-luxury text-ink link-underline"
+              >
+                View all
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+              {related.map((v, i) => (
+                <VehicleCard key={v.slug} vehicle={v} index={i} />
+              ))}
             </div>
           </div>
         </section>
@@ -183,9 +197,9 @@ function VehicleDetail() {
 
 function Detail({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-background p-5">
-      <div className="text-[10px] tracking-luxury uppercase text-muted-foreground">{label}</div>
-      <div className="mt-2 font-display text-lg text-ivory">{value}</div>
+    <div>
+      <div className="text-[10px] tracking-luxury uppercase text-stone">{label}</div>
+      <div className="mt-2 font-display text-lg text-ink">{value}</div>
     </div>
   );
 }
