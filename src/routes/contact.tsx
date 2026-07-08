@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { SectionLabel } from "@/components/SectionLabel";
-import { Phone, Mail, MapPin, Send, Check } from "lucide-react";
+import { Phone, Mail, MapPin, ArrowUpRight, Check } from "lucide-react";
 import { vehicles, categories } from "@/data/vehicles";
 
 const searchSchema = z.object({
@@ -14,10 +14,10 @@ export const Route = createFileRoute("/contact")({
   validateSearch: searchSchema,
   head: () => ({
     meta: [
-      { title: "Reserve a Vehicle — Contact Ride4Movies | West Hollywood, CA" },
-      { name: "description", content: "Reserve a luxury or vintage picture car. Call 310-877-6400 or email Erez88@yahoo.com. Located at 615 N West Knoll Dr, West Hollywood, California." },
+      { title: "Reserve a Vehicle — Ride4Movies" },
+      { name: "description", content: "Reserve a vintage or luxury picture car. Call 310-877-6400 or email Erez88@yahoo.com. 615 N West Knoll Dr, West Hollywood." },
       { property: "og:title", content: "Reserve a Vehicle — Ride4Movies" },
-      { property: "og:description", content: "Personal reservations for film, editorial and luxury events. Located in West Hollywood." },
+      { property: "og:description", content: "Personal reservations for film, editorial and luxury events. West Hollywood, California." },
       { property: "og:url", content: "/contact" },
     ],
     links: [{ rel: "canonical", href: "/contact" }],
@@ -46,90 +46,99 @@ function Contact() {
     const parsed = formSchema.safeParse(data);
     if (!parsed.success) {
       const errs: Record<string, string> = {};
-      for (const issue of parsed.error.issues) errs[issue.path[0] as string] = issue.message;
+      for (const issue of parsed.error.issues)
+        errs[issue.path[0] as string] = issue.message;
       setErrors(errs);
       return;
     }
     setErrors({});
     setSubmitted(true);
-    // In production this would post to a server function / email service.
   }
 
-  const fieldClass = "w-full bg-transparent border-b border-border/70 focus:border-gold outline-none py-4 text-ivory placeholder:text-muted-foreground/70 transition-colors";
+  const fieldClass =
+    "w-full bg-transparent border-b border-hairline focus:border-ink outline-none py-4 text-ink placeholder:text-stone/60 transition-colors";
 
   return (
-    <div className="pt-32">
-      <section className="px-6 md:px-10 py-16 md:py-24">
-        <div className="mx-auto max-w-[1480px] text-center">
-          <SectionLabel align="center">Reservations</SectionLabel>
-          <h1 className="mt-6 font-display text-5xl md:text-7xl text-ivory leading-tight">
-            A personal <em className="gradient-gold-text not-italic">conversation.</em>
+    <div className="bg-ivory">
+      <section className="px-6 md:px-10 pt-40 md:pt-52 pb-16 md:pb-24">
+        <div className="mx-auto max-w-[1520px]">
+          <SectionLabel>Reservations</SectionLabel>
+          <h1 className="mt-10 font-display text-5xl md:text-7xl lg:text-8xl leading-[0.98] text-ink tracking-tightest max-w-5xl">
+            A personal
+            <br />
+            <em className="serif-italic text-stone">conversation.</em>
           </h1>
-          <p className="mt-8 max-w-xl mx-auto text-foreground/75 leading-relaxed font-light">
+          <p className="mt-10 max-w-md text-stone leading-relaxed font-light">
             Tell us about your production, event, or shoot. We'll respond personally — typically within the same day.
           </p>
         </div>
       </section>
 
-      <section className="px-6 md:px-10 pb-32">
-        <div className="mx-auto max-w-[1480px] grid lg:grid-cols-12 gap-16">
+      <section className="px-6 md:px-10 pb-24 md:pb-32">
+        <div className="mx-auto max-w-[1520px] grid lg:grid-cols-12 gap-16 lg:gap-24">
           {/* Form */}
           <div className="lg:col-span-7">
             {submitted ? (
-              <div className="border border-gold/40 p-12 text-center">
-                <div className="mx-auto h-14 w-14 grid place-items-center rounded-full bg-gold/15 border border-gold">
-                  <Check className="h-6 w-6 text-gold" />
+              <div className="border-t border-hairline pt-14 text-center">
+                <div className="mx-auto h-14 w-14 grid place-items-center rounded-full border border-ink">
+                  <Check className="h-5 w-5 text-ink" strokeWidth={1.4} />
                 </div>
-                <h3 className="mt-6 font-display text-3xl text-ivory">Inquiry received.</h3>
-                <p className="mt-4 text-foreground/75 max-w-md mx-auto">
-                  Thank you. Erez or a member of our team will be in touch personally within 24 hours.
+                <h3 className="mt-8 font-display text-4xl text-ink tracking-tightest">
+                  Inquiry received.
+                </h3>
+                <p className="mt-6 text-stone max-w-md mx-auto font-light">
+                  Thank you. Erez or a member of our team will be in touch personally within twenty-four hours.
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-1">
-                <div className="grid sm:grid-cols-2 gap-x-10 gap-y-1">
+              <form onSubmit={handleSubmit} className="space-y-2">
+                <div className="grid sm:grid-cols-2 gap-x-10 gap-y-2">
                   <div>
-                    <label className="text-[10px] tracking-luxury uppercase text-gold">Name</label>
+                    <label className="text-[10px] tracking-luxury uppercase text-stone">Name</label>
                     <input name="name" required className={fieldClass} placeholder="Your full name" />
-                    {errors.name && <p className="text-xs text-destructive mt-2">{errors.name}</p>}
+                    {errors.name && <p className="text-xs text-burgundy mt-2">{errors.name}</p>}
                   </div>
                   <div>
-                    <label className="text-[10px] tracking-luxury uppercase text-gold">Email</label>
+                    <label className="text-[10px] tracking-luxury uppercase text-stone">Email</label>
                     <input name="email" type="email" required className={fieldClass} placeholder="you@studio.com" />
-                    {errors.email && <p className="text-xs text-destructive mt-2">{errors.email}</p>}
+                    {errors.email && <p className="text-xs text-burgundy mt-2">{errors.email}</p>}
                   </div>
                   <div>
-                    <label className="text-[10px] tracking-luxury uppercase text-gold">Phone</label>
+                    <label className="text-[10px] tracking-luxury uppercase text-stone">Phone</label>
                     <input name="phone" className={fieldClass} placeholder="Optional" />
                   </div>
                   <div>
-                    <label className="text-[10px] tracking-luxury uppercase text-gold">Project Type</label>
+                    <label className="text-[10px] tracking-luxury uppercase text-stone">Project type</label>
                     <select name="type" className={fieldClass} defaultValue="">
-                      <option value="" className="bg-background">Select…</option>
+                      <option value="" className="bg-ivory">Select…</option>
                       {["Film / TV", "Music Video", "Editorial", "Wedding", "Luxury Event", "Other"].map((o) => (
-                        <option key={o} value={o} className="bg-background">{o}</option>
+                        <option key={o} value={o} className="bg-ivory">{o}</option>
                       ))}
                     </select>
                   </div>
                   <div>
-                    <label className="text-[10px] tracking-luxury uppercase text-gold">Date</label>
+                    <label className="text-[10px] tracking-luxury uppercase text-stone">Date</label>
                     <input name="date" className={fieldClass} placeholder="Production / event date" />
                   </div>
                   <div className="sm:col-span-2">
-                    <label className="text-[10px] tracking-luxury uppercase text-gold">Vehicle of Interest</label>
+                    <label className="text-[10px] tracking-luxury uppercase text-stone">Vehicle of interest</label>
                     <select name="vehicle" defaultValue={vehicle ?? ""} className={fieldClass}>
-                      <option value="" className="bg-background">Select a vehicle (optional)…</option>
-                      <option value="No preference — recommend something" className="bg-background">No preference — recommend something</option>
+                      <option value="" className="bg-ivory">Select a vehicle (optional)…</option>
+                      <option value="No preference — recommend something" className="bg-ivory">
+                        No preference — recommend something
+                      </option>
                       {categories.map((cat) => (
-                        <optgroup key={cat} label={cat} className="bg-background text-ivory">
-                          {vehicles.filter((v) => v.category === cat).map((v) => {
-                            const label = `${v.year} ${v.name}`;
-                            return (
-                              <option key={v.slug} value={label} className="bg-background">
-                                {label}
-                              </option>
-                            );
-                          })}
+                        <optgroup key={cat} label={cat}>
+                          {vehicles
+                            .filter((v) => v.category === cat)
+                            .map((v) => {
+                              const label = `${v.year} ${v.name}`;
+                              return (
+                                <option key={v.slug} value={label} className="bg-ivory">
+                                  {label}
+                                </option>
+                              );
+                            })}
                         </optgroup>
                       ))}
                     </select>
@@ -137,66 +146,88 @@ function Contact() {
                 </div>
 
                 <div className="pt-6">
-                  <label className="text-[10px] tracking-luxury uppercase text-gold">Tell us about your shoot</label>
-                  <textarea name="message" rows={5} required className={`${fieldClass} resize-none`} placeholder="Locations, dates, the look you're chasing…" />
-                  {errors.message && <p className="text-xs text-destructive mt-2">{errors.message}</p>}
+                  <label className="text-[10px] tracking-luxury uppercase text-stone">
+                    Tell us about your shoot
+                  </label>
+                  <textarea
+                    name="message"
+                    rows={5}
+                    required
+                    className={`${fieldClass} resize-none`}
+                    placeholder="Locations, dates, the look you're chasing…"
+                  />
+                  {errors.message && <p className="text-xs text-burgundy mt-2">{errors.message}</p>}
                 </div>
 
-                <button type="submit" className="mt-10 inline-flex items-center gap-3 bg-gold text-primary-foreground px-10 py-5 text-[11px] uppercase tracking-luxury hover:shadow-gold-glow transition-all duration-700">
-                  Send Inquiry <Send className="h-3.5 w-3.5" />
+                <button
+                  type="submit"
+                  className="mt-10 inline-flex items-center gap-3 bg-ink text-ivory px-10 py-4 text-[11px] uppercase tracking-luxury hover:bg-charcoal transition-colors duration-700"
+                >
+                  Send inquiry
+                  <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.4} />
                 </button>
               </form>
             )}
           </div>
 
-          {/* Info cards */}
-          <aside className="lg:col-span-5 space-y-6">
-            <div className="border border-border/60 p-8 bg-card/30 hover:border-gold/40 transition-colors duration-700">
+          {/* Info */}
+          <aside className="lg:col-span-5 space-y-12">
+            <div className="border-t border-hairline pt-8">
               <div className="flex items-start gap-5">
-                <div className="h-11 w-11 grid place-items-center border border-gold/40 text-gold shrink-0"><Phone className="h-4 w-4" /></div>
+                <Phone className="h-4 w-4 text-ink mt-2" strokeWidth={1.4} />
                 <div>
-                  <div className="text-[10px] tracking-luxury uppercase text-muted-foreground">Direct Line</div>
-                  <a href="tel:3108776400" className="mt-2 block font-display text-2xl text-ivory hover:text-gold transition-colors">310-877-6400</a>
-                  <div className="mt-1 text-xs text-muted-foreground">Erez Chaim</div>
+                  <div className="text-[10px] tracking-luxury uppercase text-stone">Direct line</div>
+                  <a
+                    href="tel:3108776400"
+                    className="mt-2 block font-display text-3xl text-ink hover:text-stone transition-colors tracking-tightest"
+                  >
+                    310 · 877 · 6400
+                  </a>
+                  <div className="mt-1 text-xs text-stone italic font-display">Erez Chaim</div>
                 </div>
               </div>
             </div>
 
-            <div className="border border-border/60 p-8 bg-card/30 hover:border-gold/40 transition-colors duration-700">
+            <div className="border-t border-hairline pt-8">
               <div className="flex items-start gap-5">
-                <div className="h-11 w-11 grid place-items-center border border-gold/40 text-gold shrink-0"><Mail className="h-4 w-4" /></div>
+                <Mail className="h-4 w-4 text-ink mt-2" strokeWidth={1.4} />
                 <div>
-                  <div className="text-[10px] tracking-luxury uppercase text-muted-foreground">Email</div>
-                  <a href="mailto:Erez88@yahoo.com" className="mt-2 block font-display text-2xl text-ivory hover:text-gold transition-colors break-all">Erez88@yahoo.com</a>
+                  <div className="text-[10px] tracking-luxury uppercase text-stone">Email</div>
+                  <a
+                    href="mailto:Erez88@yahoo.com"
+                    className="mt-2 block font-display text-2xl text-ink hover:text-stone transition-colors break-all tracking-tightest"
+                  >
+                    Erez88@yahoo.com
+                  </a>
                 </div>
               </div>
             </div>
 
-            <div className="border border-border/60 p-8 bg-card/30 hover:border-gold/40 transition-colors duration-700">
+            <div className="border-t border-hairline pt-8">
               <div className="flex items-start gap-5">
-                <div className="h-11 w-11 grid place-items-center border border-gold/40 text-gold shrink-0"><MapPin className="h-4 w-4" /></div>
+                <MapPin className="h-4 w-4 text-ink mt-2" strokeWidth={1.4} />
                 <div>
-                  <div className="text-[10px] tracking-luxury uppercase text-muted-foreground">Atelier</div>
-                  <div className="mt-2 font-display text-xl text-ivory leading-tight">615 N West Knoll Dr<br />West Hollywood, California</div>
+                  <div className="text-[10px] tracking-luxury uppercase text-stone">Atelier</div>
+                  <div className="mt-2 font-display text-xl text-ink leading-tight tracking-tightest">
+                    615 N West Knoll Dr
+                    <br />
+                    West Hollywood, California
+                  </div>
                 </div>
               </div>
+            </div>
+
+            <div className="relative overflow-hidden aspect-[4/3] bg-linen">
+              <iframe
+                title="Ride4Movies — West Hollywood location"
+                src="https://www.google.com/maps?q=615+N+West+Knoll+Dr,+West+Hollywood,+CA&output=embed"
+                loading="lazy"
+                className="w-full h-full"
+                style={{ filter: "grayscale(0.9) contrast(1.0) brightness(1.02)" }}
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </aside>
-        </div>
-
-        {/* Map */}
-        <div className="mx-auto max-w-[1480px] mt-16">
-          <div className="relative overflow-hidden border border-border/60 bg-card film-grain">
-            <iframe
-              title="Ride4Movies — West Hollywood location"
-              src="https://www.google.com/maps?q=615+N+West+Knoll+Dr,+West+Hollywood,+CA&output=embed"
-              loading="lazy"
-              className="w-full h-[480px] grayscale-[40%] contrast-110 brightness-75 sepia-[20%]"
-              style={{ filter: "grayscale(0.5) contrast(1.05) brightness(0.85) sepia(0.15)" }}
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-            <div className="pointer-events-none absolute inset-0 ring-1 ring-gold/20" />
-          </div>
         </div>
       </section>
     </div>
