@@ -127,12 +127,12 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
-      <AmbientParticles />
       <SiteHeader />
-      <main className="relative z-[2] min-h-screen bg-ivory">
+      <main className="min-h-screen bg-ivory">
         <Outlet />
       </main>
       <SiteFooter />
+      <AmbientParticles />
     </QueryClientProvider>
   );
 }
