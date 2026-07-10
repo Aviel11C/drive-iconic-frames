@@ -18,7 +18,7 @@ export function VehicleCard({ vehicle, index }: { vehicle: Vehicle; index?: numb
               loading="lazy"
               width={1200}
               height={1500}
-              className="h-full w-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-[1.04]"
+              className="h-full w-full object-contain transition-transform duration-[1600ms] ease-out group-hover:scale-[1.04]"
             />
           ) : (
             <div className="h-full w-full grid place-items-center">
