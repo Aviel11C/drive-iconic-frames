@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/logo.png";
+import logoAsset from "@/assets/logo.png.asset.json";
+
+const logo = logoAsset.url;
 
 const nav = [
   { to: "/", label: "Home" },
@@ -14,6 +16,9 @@ const nav = [
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  // "light" = section beneath is dark → render logo/text white
+  // "dark"  = section beneath is light → render logo/text dark
+  const [sectionTheme, setSectionTheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -21,6 +26,52 @@ export function SiteHeader() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Watch sections tagged with data-nav-theme and pick whichever one sits under the header band.
+  useEffect(() => {
+    const HEADER_BAND = 96; // px — approximate header height we care about
+
+    const compute = () => {
+      const targets = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-nav-theme]"),
+      );
+      if (!targets.length) {
+        setSectionTheme("dark");
+        return;
+      }
+      // Pick the section whose rect crosses the header band; fall back to last passed.
+      let active: HTMLElement | null = null;
+      for (const el of targets) {
+        const r = el.getBoundingClientRect();
+        if (r.top <= HEADER_BAND && r.bottom > HEADER_BAND) {
+          active = el;
+          break;
+        }
+      }
+      const theme = (active?.dataset.navTheme as "light" | "dark" | undefined) ?? "dark";
+      setSectionTheme(theme);
+    };
+
+    compute();
+    window.addEventListener("scroll", compute, { passive: true });
+    window.addEventListener("resize", compute);
+    // Recompute after route content mounts / images load.
+    const t = window.setTimeout(compute, 100);
+    return () => {
+      window.removeEventListener("scroll", compute);
+      window.removeEventListener("resize", compute);
+      window.clearTimeout(t);
+    };
+  }, []);
+
+  // When the header has its ivory backdrop, always use dark logo/text.
+  const effectiveTheme: "light" | "dark" = scrolled ? "dark" : sectionTheme;
+  const isLight = effectiveTheme === "light";
+
+  // Logo: invert to white when over dark backgrounds.
+  const logoFilter = isLight ? "invert(1) brightness(1.6) contrast(1.05)" : "none";
+  const textColor = isLight ? "text-linen" : "text-ink";
+  const textColorSoft = isLight ? "text-linen/85 hover:text-linen" : "text-ink/80 hover:text-ink";
 
   return (
     <header
@@ -34,7 +85,7 @@ export function SiteHeader() {
       <div className="md:hidden flex items-center justify-between px-5 py-4">
         <button
           aria-label="Menu"
-          className="text-ink"
+          className={textColor}
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X className="h-5 w-5" strokeWidth={1.2} /> : <Menu className="h-5 w-5" strokeWidth={1.2} />}
@@ -43,12 +94,13 @@ export function SiteHeader() {
           <img
             src={logo}
             alt="Ride4Movies"
-            className="h-10 w-auto"
+            className="h-10 w-auto transition-[filter] duration-500"
+            style={{ filter: logoFilter }}
           />
         </Link>
         <Link
           to="/contact"
-          className="text-[10px] uppercase tracking-luxury text-ink link-underline"
+          className={`text-[10px] uppercase tracking-luxury link-underline transition-colors duration-500 ${textColor}`}
         >
           Reserve
         </Link>
@@ -66,8 +118,8 @@ export function SiteHeader() {
               <Link
                 key={n.to}
                 to={n.to}
-                className="text-[11px] uppercase tracking-luxury text-ink/80 hover:text-ink transition-colors duration-500 link-underline"
-                activeProps={{ className: "text-ink" }}
+                className={`text-[11px] uppercase tracking-luxury transition-colors duration-500 link-underline ${textColorSoft}`}
+                activeProps={{ className: isLight ? "text-linen" : "text-ink" }}
                 activeOptions={{ exact: n.to === "/" }}
               >
                 {n.label}
@@ -79,9 +131,10 @@ export function SiteHeader() {
             <img
               src={logo}
               alt="Ride4Movies — Hollywood Picture Cars"
-              className={`w-auto transition-all duration-700 ${
+              className={`w-auto transition-[filter,height] duration-700 ${
                 scrolled ? "h-14" : "h-20"
               }`}
+              style={{ filter: logoFilter }}
             />
           </Link>
 
@@ -90,8 +143,8 @@ export function SiteHeader() {
               <Link
                 key={n.to}
                 to={n.to}
-                className="text-[11px] uppercase tracking-luxury text-ink/80 hover:text-ink transition-colors duration-500 link-underline"
-                activeProps={{ className: "text-ink" }}
+                className={`text-[11px] uppercase tracking-luxury transition-colors duration-500 link-underline ${textColorSoft}`}
+                activeProps={{ className: isLight ? "text-linen" : "text-ink" }}
               >
                 {n.label}
               </Link>

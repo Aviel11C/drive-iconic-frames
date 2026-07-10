@@ -66,7 +66,7 @@ function Home() {
   return (
     <div className="bg-ivory">
       {/* HERO */}
-      <section className="relative h-[100svh] w-full overflow-hidden">
+      <section data-nav-theme="light" className="relative h-[100svh] w-full overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={heroImg}
