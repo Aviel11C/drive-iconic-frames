@@ -82,7 +82,7 @@ export function AmbientParticles({ count = 32 }: { count?: number }) {
     <canvas
       ref={ref}
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[1] h-full w-full mix-blend-soft-light opacity-70"
+      className="pointer-events-none fixed inset-0 z-[60] h-full w-full mix-blend-soft-light opacity-80"
     />
   );
 }
