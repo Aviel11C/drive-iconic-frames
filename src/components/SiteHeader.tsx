@@ -82,25 +82,25 @@ export function SiteHeader() {
       }`}
     >
       {/* Mobile bar */}
-      <div className="md:hidden flex items-center justify-between px-5 py-4">
+      <div className="md:hidden grid grid-cols-[5rem_1fr_5rem] items-center justify-items-center px-5 py-4">
         <button
           aria-label="Menu"
-          className={textColor}
+          className={`flex items-center justify-center w-full ${textColor}`}
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X className="h-5 w-5" strokeWidth={1.2} /> : <Menu className="h-5 w-5" strokeWidth={1.2} />}
         </button>
-        <Link to="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
+        <Link to="/" className="flex items-center justify-center" onClick={() => setOpen(false)}>
           <img
             src={logo}
             alt="Ride4Movies"
-            className="h-10 w-auto transition-[filter] duration-500"
+            className="h-12 w-auto transition-[filter] duration-500"
             style={{ filter: logoFilter }}
           />
         </Link>
         <Link
           to="/contact"
-          className={`text-[10px] uppercase tracking-luxury link-underline transition-colors duration-500 ${textColor}`}
+          className={`text-[10px] uppercase tracking-luxury link-underline transition-colors duration-500 text-center w-full ${textColor}`}
         >
           Reserve
         </Link>
@@ -132,7 +132,7 @@ export function SiteHeader() {
               src={logo}
               alt="Ride4Movies — Hollywood Picture Cars"
               className={`w-auto transition-[filter,height] duration-700 ${
-                scrolled ? "h-14" : "h-20"
+                scrolled ? "h-16" : "h-24"
               }`}
               style={{ filter: logoFilter }}
             />
