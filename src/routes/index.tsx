@@ -76,16 +76,7 @@ function Home() {
             height={1200}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink/45" />
-          <div
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background: "radial-gradient(circle at 30% 75%, rgba(23,23,22,0.55) 0%, rgba(23,23,22,0.28) 28%, rgba(23,23,22,0.08) 48%, transparent 65%)",
-              backdropFilter: "blur(14px)",
-              WebkitBackdropFilter: "blur(14px)",
-              maskImage: "radial-gradient(circle at 30% 75%, black 0%, black 28%, transparent 65%)",
-              WebkitMaskImage: "radial-gradient(circle at 30% 75%, black 0%, black 28%, transparent 65%)",
-            }}
-          />
+          <div className="hero-blur" aria-hidden="true" />
         </div>
 
         <div className="relative z-10 flex h-full items-end pb-24 md:pb-28">
