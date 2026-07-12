@@ -219,20 +219,39 @@
   /* Radial Gaussian blur behind hero text for readability */
   .hero-blur {
     position: absolute; inset: 0; pointer-events: none;
-    backdrop-filter: blur(14px) saturate(110%);
+    backdrop-filter: blur(16px) saturate(110%);
     background: radial-gradient(
-      ellipse at 30% 75%,
-      oklch(0.14 0.008 55 / 0.42) 0%,
-      oklch(0.14 0.008 55 / 0.18) 28%,
-      oklch(0.14 0.008 55 / 0.05) 46%,
+      ellipse at 30% 82%,
+      oklch(0.14 0.008 55 / 0.48) 0%,
+      oklch(0.14 0.008 55 / 0.22) 26%,
+      oklch(0.14 0.008 55 / 0.06) 44%,
       transparent 64%
     );
     mask-image: radial-gradient(
-      ellipse at 30% 75%,
+      ellipse at 30% 82%,
       black 0%,
       black 34%,
       transparent 64%
     );
+  }
+
+  @media (min-width: 768px) {
+    .hero-blur {
+      backdrop-filter: blur(18px) saturate(110%);
+      background: radial-gradient(
+        ellipse at 28% 72%,
+        oklch(0.14 0.008 55 / 0.46) 0%,
+        oklch(0.14 0.008 55 / 0.20) 28%,
+        oklch(0.14 0.008 55 / 0.05) 48%,
+        transparent 68%
+      );
+      mask-image: radial-gradient(
+        ellipse at 28% 72%,
+        black 0%,
+        black 34%,
+        transparent 68%
+      );
+    }
   }
 
   .shadow-editorial {
