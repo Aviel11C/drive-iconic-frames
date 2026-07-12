@@ -216,6 +216,25 @@
     background: radial-gradient(ellipse at center, transparent 40%, oklch(0.12 0.02 55 / 45%) 100%);
   }
 
+  /* Radial Gaussian blur behind hero text for readability */
+  .hero-blur {
+    position: absolute; inset: 0; pointer-events: none;
+    backdrop-filter: blur(14px) saturate(110%);
+    background: radial-gradient(
+      ellipse at 30% 75%,
+      oklch(0.14 0.008 55 / 0.42) 0%,
+      oklch(0.14 0.008 55 / 0.18) 28%,
+      oklch(0.14 0.008 55 / 0.05) 46%,
+      transparent 64%
+    );
+    mask-image: radial-gradient(
+      ellipse at 30% 75%,
+      black 0%,
+      black 34%,
+      transparent 64%
+    );
+  }
+
   .shadow-editorial {
     box-shadow: 0 40px 80px -40px oklch(0.20 0.02 55 / 22%);
   }
