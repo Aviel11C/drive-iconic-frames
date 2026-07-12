@@ -76,6 +76,7 @@ function Home() {
             height={1200}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink/45" />
+          <div className="hero-blur" aria-hidden="true" />
         </div>
 
         <div className="relative z-10 flex h-full items-end pb-24 md:pb-28">
