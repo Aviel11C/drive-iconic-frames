@@ -154,7 +154,7 @@ function Home() {
                 to="/collection"
                 className={`group block ${i % 2 === 1 ? "md:mt-24" : ""}`}
               >
-                <div className="relative aspect-[4/5] overflow-hidden bg-linen grain">
+                <div className={`relative aspect-[4/5] overflow-hidden bg-linen grain ${c.flip ? "scale-x-[-1]" : ""}`}>
                   <img
                     src={c.image}
                     alt={`${c.title} — Ride4Movies collection`}
