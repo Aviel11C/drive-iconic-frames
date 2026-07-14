@@ -161,7 +161,7 @@ function Home() {
                     loading="lazy"
                     width={1200}
                     height={1500}
-                    className="h-full w-full object-cover transition-transform duration-[1800ms] ease-out group-hover:scale-[1.05]"
+                    className={`h-full w-full object-cover transition-transform duration-[1800ms] ease-out group-hover:scale-[1.05] ${c.flip ? "object-bottom" : ""}`}
                   />
                 </div>
                 <div className="mt-6 flex items-start justify-between gap-4">
