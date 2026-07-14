@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroAsset from "@/assets/homepage-hero.jpg.asset.json";
 import villaImg from "@/assets/editorial/villa.jpg";
-import coastImg from "@/assets/editorial/coast.jpg";
+import modernElectricAsset from "@/assets/editorial/modern-electric.jpg.asset.json";
 import filmsetImg from "@/assets/editorial/filmset.jpg";
 import vineyardImg from "@/assets/editorial/vineyard.jpg";
 import desertImg from "@/assets/editorial/desert.jpg";
@@ -30,7 +30,7 @@ export const Route = createFileRoute("/")({
 const editorialCollections = [
   { title: "Vintage Classics", subtitle: "American icons of chrome and cinema.", image: vintageClassicsAsset.url, category: "Vintage Classics", flip: true },
   { title: "European Icons", subtitle: "Mercedes, Rolls, and refined continental design.", image: villaImg, category: "Luxury Vehicles" },
-  { title: "Modern Electric", subtitle: "Silent torque. Contemporary presence.", image: coastImg, category: "Electric Modern" },
+  { title: "Modern Electric", subtitle: "Silent torque. Contemporary presence.", image: modernElectricAsset.url, category: "Electric Modern" },
   { title: "On the Water", subtitle: "Chris-Craft, Duffy, Sea-Doo.", image: vineyardImg, category: "Boats & Watercraft" },
 ];
 
