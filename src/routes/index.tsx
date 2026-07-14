@@ -4,7 +4,6 @@ import villaImg from "@/assets/editorial/villa.jpg";
 import coastImg from "@/assets/editorial/coast.jpg";
 import filmsetImg from "@/assets/editorial/filmset.jpg";
 import vineyardImg from "@/assets/editorial/vineyard.jpg";
-import interiorImg from "@/assets/editorial/interior.jpg";
 import desertImg from "@/assets/editorial/desert.jpg";
 import vintageClassicsAsset from "@/assets/editorial/vintage-classics.jpg.asset.json";
 import { vehicles, categories } from "@/data/vehicles";
