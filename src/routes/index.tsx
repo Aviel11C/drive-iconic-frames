@@ -4,8 +4,8 @@ import villaImg from "@/assets/editorial/villa.jpg";
 import coastImg from "@/assets/editorial/coast.jpg";
 import filmsetImg from "@/assets/editorial/filmset.jpg";
 import vineyardImg from "@/assets/editorial/vineyard.jpg";
-import interiorImg from "@/assets/editorial/interior.jpg";
 import desertImg from "@/assets/editorial/desert.jpg";
+import vintageClassicsAsset from "@/assets/editorial/vintage-classics.jpg.asset.json";
 import { vehicles, categories } from "@/data/vehicles";
 import { VehicleCard } from "@/components/VehicleCard";
 import { SectionLabel } from "@/components/SectionLabel";
@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
 });
 
 const editorialCollections = [
-  { title: "Vintage Classics", subtitle: "American icons of chrome and cinema.", image: interiorImg, category: "Vintage Classics" },
+  { title: "Vintage Classics", subtitle: "American icons of chrome and cinema.", image: vintageClassicsAsset.url, category: "Vintage Classics", flip: true },
   { title: "European Icons", subtitle: "Mercedes, Rolls, and refined continental design.", image: villaImg, category: "Luxury Vehicles" },
   { title: "Modern Electric", subtitle: "Silent torque. Contemporary presence.", image: coastImg, category: "Electric Modern" },
   { title: "On the Water", subtitle: "Chris-Craft, Duffy, Sea-Doo.", image: vineyardImg, category: "Boats & Watercraft" },
@@ -153,14 +153,14 @@ function Home() {
                 to="/collection"
                 className={`group block ${i % 2 === 1 ? "md:mt-24" : ""}`}
               >
-                <div className="relative aspect-[4/5] overflow-hidden bg-linen grain">
+                <div className={`relative aspect-[4/5] overflow-hidden bg-linen grain ${c.flip ? "flip-h" : ""}`}>
                   <img
                     src={c.image}
                     alt={`${c.title} — Ride4Movies collection`}
                     loading="lazy"
                     width={1200}
                     height={1500}
-                    className="h-full w-full object-cover transition-transform duration-[1800ms] ease-out group-hover:scale-[1.05]"
+                    className={`h-full w-full object-cover transition-transform duration-[1800ms] ease-out group-hover:scale-[1.05] ${c.flip ? "object-bottom" : ""}`}
                   />
                 </div>
                 <div className="mt-6 flex items-start justify-between gap-4">

@@ -219,12 +219,12 @@
   /* Radial Gaussian blur behind hero text for readability */
   .hero-blur {
     position: absolute; inset: 0; pointer-events: none;
-    backdrop-filter: blur(16px) saturate(110%);
+    backdrop-filter: blur(10px) saturate(110%);
     background: radial-gradient(
       ellipse at 30% 82%,
-      oklch(0.14 0.008 55 / 0.48) 0%,
-      oklch(0.14 0.008 55 / 0.22) 26%,
-      oklch(0.14 0.008 55 / 0.06) 44%,
+      oklch(0.14 0.008 55 / 0.32) 0%,
+      oklch(0.14 0.008 55 / 0.14) 26%,
+      oklch(0.14 0.008 55 / 0.04) 44%,
       transparent 64%
     );
     mask-image: radial-gradient(
@@ -237,12 +237,12 @@
 
   @media (min-width: 768px) {
     .hero-blur {
-      backdrop-filter: blur(18px) saturate(110%);
+      backdrop-filter: blur(12px) saturate(110%);
       background: radial-gradient(
         ellipse at 28% 72%,
-        oklch(0.14 0.008 55 / 0.46) 0%,
-        oklch(0.14 0.008 55 / 0.20) 28%,
-        oklch(0.14 0.008 55 / 0.05) 48%,
+        oklch(0.14 0.008 55 / 0.30) 0%,
+        oklch(0.14 0.008 55 / 0.12) 28%,
+        oklch(0.14 0.008 55 / 0.03) 48%,
         transparent 68%
       );
       mask-image: radial-gradient(
@@ -256,6 +256,11 @@
 
   .shadow-editorial {
     box-shadow: 0 40px 80px -40px oklch(0.20 0.02 55 / 22%);
+  }
+
+  /* Horizontal flip utility */
+  .flip-h {
+    transform: scaleX(-1);
   }
 }
 
