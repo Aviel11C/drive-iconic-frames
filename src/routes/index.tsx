@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroAsset from "@/assets/homepage-hero.jpg.asset.json";
 import villaImg from "@/assets/editorial/villa.jpg";
-import coastImg from "@/assets/editorial/coast.jpg";
+import modernElectricAsset from "@/assets/editorial/modern-electric.jpg.asset.json";
 import filmsetImg from "@/assets/editorial/filmset.jpg";
 import vineyardImg from "@/assets/editorial/vineyard.jpg";
 import desertImg from "@/assets/editorial/desert.jpg";
