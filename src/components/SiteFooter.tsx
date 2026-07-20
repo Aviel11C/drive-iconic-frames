@@ -85,10 +85,19 @@ export function SiteFooter() {
 
         <div className="mt-24 pt-8 border-t border-linen/10 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-linen/50">
           <p>© {new Date().getFullYear()} Ride4Movies — All rights reserved.</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            <Link to="/terms" className="hover:text-linen transition-colors tracking-editorial uppercase">
+              Terms & Conditions
+            </Link>
+            <Link to="/privacy-choices" className="hover:text-linen transition-colors tracking-editorial uppercase">
+              Your Privacy Choices
+            </Link>
+          </div>
           <p className="tracking-editorial uppercase">
             Made in Los Angeles · Reservation based
           </p>
         </div>
+
       </div>
     </footer>
   );

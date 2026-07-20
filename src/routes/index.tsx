@@ -10,6 +10,7 @@ import { vehicles, categories } from "@/data/vehicles";
 import { VehicleCard } from "@/components/VehicleCard";
 import { SectionLabel } from "@/components/SectionLabel";
 import { ArrowUpRight } from "lucide-react";
+import { BrandMarquee } from "@/components/BrandMarquee";
 
 const heroImg = heroAsset.url;
 
@@ -34,7 +35,7 @@ const editorialCollections = [
   { title: "On the Water", subtitle: "Chris-Craft, Duffy, Sea-Doo.", image: vineyardImg, category: "Boats & Watercraft" },
 ];
 
-const studios = ["Netflix", "Universal", "Disney", "Sony", "Warner Bros", "A24", "HBO", "Vogue"];
+
 
 const process = [
   { n: "01", t: "Browse", d: "Explore the collection at your own pace. Every vehicle is available on request." },
@@ -251,18 +252,10 @@ function Home() {
           <div className="text-center mb-16">
             <SectionLabel align="center" number="V">Trusted by</SectionLabel>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 md:gap-y-14">
-            {studios.map((s) => (
-              <div
-                key={s}
-                className="font-display text-2xl md:text-3xl text-stone/80 text-center tracking-tight hover:text-ink transition-colors duration-500"
-              >
-                {s}
-              </div>
-            ))}
-          </div>
+          <BrandMarquee />
         </div>
       </section>
+
 
       {/* PROCESS */}
       <section className="px-6 md:px-10 py-24 md:py-32 bg-bone">
