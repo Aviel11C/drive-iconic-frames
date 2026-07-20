@@ -38,9 +38,12 @@ function Contact() {
   const { vehicle } = Route.useSearch();
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setSendError(null);
     const fd = new FormData(e.currentTarget);
     const data = Object.fromEntries(fd.entries());
     const parsed = formSchema.safeParse(data);
@@ -52,7 +55,25 @@ function Contact() {
       return;
     }
     setErrors({});
-    setSubmitted(true);
+    setSending(true);
+
+    try {
+      const res = await fetch("/api/public/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsed.data),
+      });
+      const json = await res.json().catch(() => ({ ok: false, error: "Something went wrong." }));
+      if (!res.ok || !json.ok) {
+        setSendError(json.error || "Could not send inquiry. Please try again.");
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setSendError("Could not send inquiry. Please check your connection and try again.");
+    } finally {
+      setSending(false);
+    }
   }
 
   const fieldClass =
