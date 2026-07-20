@@ -9,8 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as PrivacyChoicesRouteImport } from './routes/privacy-choices'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CollectionRouteImport } from './routes/collection'
 import { Route as AboutRouteImport } from './routes/about'
@@ -19,6 +21,11 @@ import { Route as CollectionIndexRouteImport } from './routes/collection.index'
 import { Route as CollectionSlugRouteImport } from './routes/collection.$slug'
 import { Route as ApiPublicContactRouteImport } from './routes/api/public/contact'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -27,6 +34,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyChoicesRoute = PrivacyChoicesRouteImport.update({
+  id: '/privacy-choices',
+  path: '/privacy-choices',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -70,8 +82,10 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/collection': typeof CollectionRouteWithChildren
   '/contact': typeof ContactRoute
+  '/privacy-choices': typeof PrivacyChoicesRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/collection/$slug': typeof CollectionSlugRoute
   '/collection/': typeof CollectionIndexRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -80,8 +94,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/privacy-choices': typeof PrivacyChoicesRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/collection/$slug': typeof CollectionSlugRoute
   '/collection': typeof CollectionIndexRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -92,8 +108,10 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/collection': typeof CollectionRouteWithChildren
   '/contact': typeof ContactRoute
+  '/privacy-choices': typeof PrivacyChoicesRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/collection/$slug': typeof CollectionSlugRoute
   '/collection/': typeof CollectionIndexRoute
   '/api/public/contact': typeof ApiPublicContactRoute
@@ -105,8 +123,10 @@ export interface FileRouteTypes {
     | '/about'
     | '/collection'
     | '/contact'
+    | '/privacy-choices'
     | '/services'
     | '/sitemap.xml'
+    | '/terms'
     | '/collection/$slug'
     | '/collection/'
     | '/api/public/contact'
@@ -115,8 +135,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/privacy-choices'
     | '/services'
     | '/sitemap.xml'
+    | '/terms'
     | '/collection/$slug'
     | '/collection'
     | '/api/public/contact'
@@ -126,8 +148,10 @@ export interface FileRouteTypes {
     | '/about'
     | '/collection'
     | '/contact'
+    | '/privacy-choices'
     | '/services'
     | '/sitemap.xml'
+    | '/terms'
     | '/collection/$slug'
     | '/collection/'
     | '/api/public/contact'
@@ -138,13 +162,22 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CollectionRoute: typeof CollectionRouteWithChildren
   ContactRoute: typeof ContactRoute
+  PrivacyChoicesRoute: typeof PrivacyChoicesRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermsRoute: typeof TermsRoute
   ApiPublicContactRoute: typeof ApiPublicContactRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -157,6 +190,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-choices': {
+      id: '/privacy-choices'
+      path: '/privacy-choices'
+      fullPath: '/privacy-choices'
+      preLoaderRoute: typeof PrivacyChoicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -230,8 +270,10 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   CollectionRoute: CollectionRouteWithChildren,
   ContactRoute: ContactRoute,
+  PrivacyChoicesRoute: PrivacyChoicesRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermsRoute: TermsRoute,
   ApiPublicContactRoute: ApiPublicContactRoute,
 }
 export const routeTree = rootRouteImport
