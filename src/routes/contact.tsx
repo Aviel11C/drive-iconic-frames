@@ -180,12 +180,17 @@ function Contact() {
                   {errors.message && <p className="text-xs text-burgundy mt-2">{errors.message}</p>}
                 </div>
 
+                {sendError && (
+                  <p className="mt-8 text-sm text-burgundy">{sendError}</p>
+                )}
+
                 <button
                   type="submit"
-                  className="mt-10 inline-flex items-center gap-3 bg-ink text-ivory px-10 py-4 text-[11px] uppercase tracking-luxury hover:bg-charcoal transition-colors duration-700"
+                  disabled={sending}
+                  className="mt-8 inline-flex items-center gap-3 bg-ink text-ivory px-10 py-4 text-[11px] uppercase tracking-luxury hover:bg-charcoal transition-colors duration-700 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Send inquiry
-                  <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.4} />
+                  {sending ? "Sending…" : "Send inquiry"}
+                  {!sending && <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.4} />}
                 </button>
               </form>
             )}
