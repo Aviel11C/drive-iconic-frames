@@ -38,9 +38,12 @@ function Contact() {
   const { vehicle } = Route.useSearch();
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setSendError(null);
     const fd = new FormData(e.currentTarget);
     const data = Object.fromEntries(fd.entries());
     const parsed = formSchema.safeParse(data);
@@ -52,7 +55,25 @@ function Contact() {
       return;
     }
     setErrors({});
-    setSubmitted(true);
+    setSending(true);
+
+    try {
+      const res = await fetch("/api/public/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsed.data),
+      });
+      const json = await res.json().catch(() => ({ ok: false, error: "Something went wrong." }));
+      if (!res.ok || !json.ok) {
+        setSendError(json.error || "Could not send inquiry. Please try again.");
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setSendError("Could not send inquiry. Please check your connection and try again.");
+    } finally {
+      setSending(false);
+    }
   }
 
   const fieldClass =
@@ -159,12 +180,17 @@ function Contact() {
                   {errors.message && <p className="text-xs text-burgundy mt-2">{errors.message}</p>}
                 </div>
 
+                {sendError && (
+                  <p className="mt-8 text-sm text-burgundy">{sendError}</p>
+                )}
+
                 <button
                   type="submit"
-                  className="mt-10 inline-flex items-center gap-3 bg-ink text-ivory px-10 py-4 text-[11px] uppercase tracking-luxury hover:bg-charcoal transition-colors duration-700"
+                  disabled={sending}
+                  className="mt-8 inline-flex items-center gap-3 bg-ink text-ivory px-10 py-4 text-[11px] uppercase tracking-luxury hover:bg-charcoal transition-colors duration-700 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Send inquiry
-                  <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.4} />
+                  {sending ? "Sending…" : "Send inquiry"}
+                  {!sending && <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.4} />}
                 </button>
               </form>
             )}
