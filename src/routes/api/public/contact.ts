@@ -59,10 +59,11 @@ export const Route = createFileRoute("/api/public/contact")({
           ? `Inquiry: ${vehicle} — ${name}`
           : `New inquiry from ${name}`;
 
-        // IMPORTANT: For emails to go to erez88@yahoo.com reliably, verify a domain in Resend
-        // and update FROM_ADDRESS to something like "Ride4Movies <inquiries@yourdomain.com>".
-        // onboarding@resend.dev only delivers to the Resend account owner's own email.
-        const FROM_ADDRESS = "Ride4Movies <onboarding@resend.dev>";
+        // IMPORTANT: Resend's onboarding@resend.dev address can only send to the Resend
+        // account owner's email. To deliver inquiries to erez88@yahoo.com, verify a domain
+        // at resend.com/domains and set RESEND_FROM_ADDRESS (e.g. "Ride4Movies <inquiries@yourdomain.com>").
+        const FROM_ADDRESS =
+          process.env.RESEND_FROM_ADDRESS || "Ride4Movies <onboarding@resend.dev>";
 
         try {
           const res = await fetch(`${GATEWAY_URL}/emails`, {
