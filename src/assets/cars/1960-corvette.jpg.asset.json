@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "97385dbd-7b8c-4140-aec0-f169d24dd343",
-  "project_id": "1fccd8bd-b4d9-42d3-af44-987b1245828f",
-  "url": "/__l5e/assets-v1/97385dbd-7b8c-4140-aec0-f169d24dd343/1960-corvette-side.jpg",
-  "r2_key": "a/v1/1fccd8bd-b4d9-42d3-af44-987b1245828f/97385dbd-7b8c-4140-aec0-f169d24dd343/1960-corvette-side.jpg",
-  "original_filename": "1960-corvette-side.jpg",
-  "size": 261499,
   "content_type": "image/jpeg",
-  "created_at": "2026-07-06T22:38:29Z"
+  "created_at": "2026-07-06T22:38:29Z",
+  "original_filename": "1960-corvette-side.jpg",
+  "project_id": "8c7767ca-f81e-4e11-b258-de6cc7332437",
+  "r2_key": "a/v1/8c7767ca-f81e-4e11-b258-de6cc7332437/97385dbd-7b8c-4140-aec0-f169d24dd343/1960-corvette-side.jpg",
+  "size": 261499,
+  "url": "/__l5e/assets-v1/97385dbd-7b8c-4140-aec0-f169d24dd343/1960-corvette-side.jpg",
+  "version": 1
 }

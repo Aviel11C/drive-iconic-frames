@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "9b62cc17-585d-4d28-b77d-ae1759690d5f",
-  "project_id": "1fccd8bd-b4d9-42d3-af44-987b1245828f",
-  "url": "/__l5e/assets-v1/9b62cc17-585d-4d28-b77d-ae1759690d5f/vintage-classics.jpg",
-  "r2_key": "a/v1/1fccd8bd-b4d9-42d3-af44-987b1245828f/9b62cc17-585d-4d28-b77d-ae1759690d5f/vintage-classics.jpg",
-  "original_filename": "vintage-classics.jpg",
-  "size": 411240,
   "content_type": "image/jpeg",
-  "created_at": "2026-07-14T02:20:07Z"
+  "created_at": "2026-07-14T02:20:07Z",
+  "original_filename": "vintage-classics.jpg",
+  "project_id": "8c7767ca-f81e-4e11-b258-de6cc7332437",
+  "r2_key": "a/v1/8c7767ca-f81e-4e11-b258-de6cc7332437/9b62cc17-585d-4d28-b77d-ae1759690d5f/vintage-classics.jpg",
+  "size": 411240,
+  "url": "/__l5e/assets-v1/9b62cc17-585d-4d28-b77d-ae1759690d5f/vintage-classics.jpg",
+  "version": 1
 }

@@ -1,11 +1,11 @@
 {
-  "version": 1,
   "asset_id": "fbef7ba9-01ef-44d8-93ba-7fce05416ead",
-  "project_id": "1fccd8bd-b4d9-42d3-af44-987b1245828f",
-  "url": "/__l5e/assets-v1/fbef7ba9-01ef-44d8-93ba-7fce05416ead/2025-seadoo-jetski-2.jpg",
-  "r2_key": "a/v1/1fccd8bd-b4d9-42d3-af44-987b1245828f/fbef7ba9-01ef-44d8-93ba-7fce05416ead/2025-seadoo-jetski-2.jpg",
-  "original_filename": "2025-seadoo-jetski-2.jpg",
-  "size": 418164,
   "content_type": "image/jpeg",
-  "created_at": "2026-07-06T23:21:30Z"
+  "created_at": "2026-07-06T23:21:30Z",
+  "original_filename": "2025-seadoo-jetski-2.jpg",
+  "project_id": "8c7767ca-f81e-4e11-b258-de6cc7332437",
+  "r2_key": "a/v1/8c7767ca-f81e-4e11-b258-de6cc7332437/fbef7ba9-01ef-44d8-93ba-7fce05416ead/2025-seadoo-jetski-2.jpg",
+  "size": 418164,
+  "url": "/__l5e/assets-v1/fbef7ba9-01ef-44d8-93ba-7fce05416ead/2025-seadoo-jetski-2.jpg",
+  "version": 1
 }
