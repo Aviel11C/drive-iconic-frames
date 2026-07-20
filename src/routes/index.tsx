@@ -35,7 +35,7 @@ const editorialCollections = [
   { title: "On the Water", subtitle: "Chris-Craft, Duffy, Sea-Doo.", image: vineyardImg, category: "Boats & Watercraft" },
 ];
 
-const studios = ["Netflix", "Universal", "Disney", "Sony", "Warner Bros", "A24", "HBO", "Vogue"];
+
 
 const process = [
   { n: "01", t: "Browse", d: "Explore the collection at your own pace. Every vehicle is available on request." },
