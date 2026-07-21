@@ -1,16 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroImg from "@/assets/homepage-hero.jpg";
+import heroAsset from "@/assets/homepage-hero.jpg.asset.json";
 import villaImg from "@/assets/editorial/villa.jpg";
-import modernElectricImg from "@/assets/editorial/modern-electric.jpg";
+import modernElectricAsset from "@/assets/editorial/modern-electric.jpg.asset.json";
 import filmsetImg from "@/assets/editorial/filmset.jpg";
 import vineyardImg from "@/assets/editorial/vineyard.jpg";
 import desertImg from "@/assets/editorial/desert.jpg";
-import vintageClassicsImg from "@/assets/editorial/vintage-classics.jpg";
+import vintageClassicsAsset from "@/assets/editorial/vintage-classics.jpg.asset.json";
 import { vehicles, categories } from "@/data/vehicles";
 import { VehicleCard } from "@/components/VehicleCard";
 import { SectionLabel } from "@/components/SectionLabel";
 import { ArrowUpRight } from "lucide-react";
-import { BrandMarquee } from "@/components/BrandMarquee";
+
+const heroImg = heroAsset.url;
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -19,7 +20,7 @@ export const Route = createFileRoute("/")({
       { title: "Ride4Movies — A Curated Collection of Picture Cars" },
       { name: "description", content: "A quietly curated atelier of vintage, classic and modern picture cars for film, editorial, weddings and luxury events. West Hollywood." },
       { property: "og:title", content: "Ride4Movies — A Curated Collection of Picture Cars" },
-      { property: "og:description", content: "Vintage, classic and modern picture cars for film, editorial, weddings and luxury events." },
+      { property: "og:description", content: "A quietly curated atelier of vintage, classic and modern picture cars for film, editorial, weddings and luxury events. West Hollywood." },
       { property: "og:url", content: "/" },
     ],
     links: [{ rel: "canonical", href: "/" }],
@@ -27,13 +28,13 @@ export const Route = createFileRoute("/")({
 });
 
 const editorialCollections = [
-  { title: "Vintage Classics", subtitle: "American icons of chrome and cinema.", image: vintageClassicsImg, category: "Vintage Classics", flip: true },
+  { title: "Vintage Classics", subtitle: "American icons of chrome and cinema.", image: vintageClassicsAsset.url, category: "Vintage Classics", flip: true },
   { title: "European Icons", subtitle: "Mercedes, Rolls, and refined continental design.", image: villaImg, category: "Luxury Vehicles" },
-  { title: "Modern Electric", subtitle: "Silent torque. Contemporary presence.", image: modernElectricImg, category: "Electric Modern" },
+  { title: "Modern Electric", subtitle: "Silent torque. Contemporary presence.", image: modernElectricAsset.url, category: "Electric Modern" },
   { title: "On the Water", subtitle: "Chris-Craft, Duffy, Sea-Doo.", image: vineyardImg, category: "Boats & Watercraft" },
 ];
 
-
+const studios = ["Netflix", "Universal", "Disney", "Sony", "Warner Bros", "A24", "HBO", "Vogue"];
 
 const process = [
   { n: "01", t: "Browse", d: "Explore the collection at your own pace. Every vehicle is available on request." },
@@ -250,10 +251,18 @@ function Home() {
           <div className="text-center mb-16">
             <SectionLabel align="center" number="V">Trusted by</SectionLabel>
           </div>
-          <BrandMarquee />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 md:gap-y-14">
+            {studios.map((s) => (
+              <div
+                key={s}
+                className="font-display text-2xl md:text-3xl text-stone/80 text-center tracking-tight hover:text-ink transition-colors duration-500"
+              >
+                {s}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
-
 
       {/* PROCESS */}
       <section className="px-6 md:px-10 py-24 md:py-32 bg-bone">
