@@ -1,18 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import heroAsset from "@/assets/homepage-hero.jpg.asset.json";
+import heroImg from "@/assets/homepage-hero.jpg";
 import villaImg from "@/assets/editorial/villa.jpg";
-import modernElectricAsset from "@/assets/editorial/modern-electric.jpg.asset.json";
+import modernElectricImg from "@/assets/editorial/modern-electric.jpg";
 import filmsetImg from "@/assets/editorial/filmset.jpg";
 import vineyardImg from "@/assets/editorial/vineyard.jpg";
 import desertImg from "@/assets/editorial/desert.jpg";
-import vintageClassicsAsset from "@/assets/editorial/vintage-classics.jpg.asset.json";
+import vintageClassicsImg from "@/assets/editorial/vintage-classics.jpg";
 import { vehicles, categories } from "@/data/vehicles";
 import { VehicleCard } from "@/components/VehicleCard";
 import { SectionLabel } from "@/components/SectionLabel";
 import { ArrowUpRight } from "lucide-react";
 import { BrandMarquee } from "@/components/BrandMarquee";
-
-const heroImg = heroAsset.url;
 
 export const Route = createFileRoute("/")({
   component: Home,
