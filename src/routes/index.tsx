@@ -27,9 +27,9 @@ export const Route = createFileRoute("/")({
 });
 
 const editorialCollections = [
-  { title: "Vintage Classics", subtitle: "American icons of chrome and cinema.", image: vintageClassicsAsset.url, category: "Vintage Classics", flip: true },
+  { title: "Vintage Classics", subtitle: "American icons of chrome and cinema.", image: vintageClassicsImg, category: "Vintage Classics", flip: true },
   { title: "European Icons", subtitle: "Mercedes, Rolls, and refined continental design.", image: villaImg, category: "Luxury Vehicles" },
-  { title: "Modern Electric", subtitle: "Silent torque. Contemporary presence.", image: modernElectricAsset.url, category: "Electric Modern" },
+  { title: "Modern Electric", subtitle: "Silent torque. Contemporary presence.", image: modernElectricImg, category: "Electric Modern" },
   { title: "On the Water", subtitle: "Chris-Craft, Duffy, Sea-Doo.", image: vineyardImg, category: "Boats & Watercraft" },
 ];
 
