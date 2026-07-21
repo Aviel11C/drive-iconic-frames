@@ -28,12 +28,11 @@ export const Route = createFileRoute("/api/public/contact")({
 
         const { name, email, phone, type, date, vehicle, message } = parsed.data;
 
-        const LOVABLE_API_KEY = process.env.LOVABLE_API_KEY;
         const RESEND_API_KEY = process.env.RESEND_API_KEY;
-        if (!LOVABLE_API_KEY || !RESEND_API_KEY) {
-          console.error("Missing LOVABLE_API_KEY or RESEND_API_KEY");
+        if (!RESEND_API_KEY) {
+          console.error("Missing RESEND_API_KEY environment variable");
           return Response.json(
-            { ok: false, error: "Email service is not configured." },
+            { ok: false, error: "Email service is not configured (missing RESEND_API_KEY)." },
             { status: 503 }
           );
         }
@@ -59,23 +58,23 @@ export const Route = createFileRoute("/api/public/contact")({
           ? `Inquiry: ${vehicle} — ${name}`
           : `New inquiry from ${name}`;
 
-        // IMPORTANT: Resend's onboarding@resend.dev address can only send to the Resend
-        // account owner's email. To deliver inquiries to erez88@yahoo.com, verify a domain
-        // at resend.com/domains and set RESEND_FROM_ADDRESS (e.g. "Ride4Movies <inquiries@yourdomain.com>").
+        // NOTE: onboarding@resend.dev only delivers to the Resend account owner's own
+        // verified email. For production, verify a domain at resend.com/domains and set
+        // RESEND_FROM_ADDRESS (e.g. "Ride4Movies <inquiries@yourdomain.com>").
         const FROM_ADDRESS =
           process.env.RESEND_FROM_ADDRESS || "Ride4Movies <onboarding@resend.dev>";
+        const TO_ADDRESS = process.env.RESEND_TO_ADDRESS || "erez88@yahoo.com";
 
         try {
-          const res = await fetch(`${GATEWAY_URL}/emails`, {
+          const res = await fetch("https://api.resend.com/emails", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${LOVABLE_API_KEY}`,
-              "X-Connection-Api-Key": RESEND_API_KEY,
+              Authorization: `Bearer ${RESEND_API_KEY}`,
             },
             body: JSON.stringify({
               from: FROM_ADDRESS,
-              to: ["erez88@yahoo.com"],
+              to: [TO_ADDRESS],
               reply_to: email,
               subject,
               html,
@@ -84,7 +83,7 @@ export const Route = createFileRoute("/api/public/contact")({
 
           if (!res.ok) {
             const errorBody = await res.text();
-            console.error(`Resend gateway failed [${res.status}]: ${errorBody}`);
+            console.error(`Resend API failed [${res.status}]: ${errorBody}`);
             return Response.json(
               { ok: false, error: `Provider request failed [${res.status}]: ${errorBody}` },
               { status: 502 }
@@ -104,6 +103,7 @@ export const Route = createFileRoute("/api/public/contact")({
     },
   },
 });
+
 
 function escapeHtml(text: string): string {
   return text
